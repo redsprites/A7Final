@@ -13,6 +13,8 @@ const commentRoutes = require('./routes/api/comments.js');
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+app.use('/public', express.static('public'));
+app.use('/assets', express.static('assets'));
 
 const port = 8080;
 app.listen(port, () => {
