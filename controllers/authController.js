@@ -6,6 +6,7 @@ const jwtSecret = 'privatekey';
 const jwt_expiration = 60 * 60 * 1000; // 1 hour in milliseconds
 
 exports.signup = async (req, res) => {
+
   try {
     const {
       first_name,
@@ -15,9 +16,9 @@ exports.signup = async (req, res) => {
       password,
       looking_for_internship,
     } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     const existingUser = await User.findOne({ email });
-    console.log(existingUser);
+    // console.log(existingUser);
 
     if (existingUser) {
       return res.status(400).json({
