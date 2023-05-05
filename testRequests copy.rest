@@ -3,22 +3,22 @@ GET http://localhost:8080/api/blogs/644201caa5edf12f5ba55249
 
 
 ### POST REQUEST
-POST http://localhost:8080/api/auth/signin
+POST http://localhost:8080/api/auth/signup
 Content-Type: application/json
 
-{
-  "email": "john.dee@example.com",
-  "password": "password123"
-}
-
 # {
-#   "first_name": "John",
-#   "last_name": "Doe",
-#   "username": "test12",
-#   "email": "test.test1@gmail.com",
-#   "password": "password123",
-#   "looking_for_internship": true
+#   "email": "john.dee@example.com",
+#   "password": "password123"
 # }
+
+{
+  "first_name": "Jodhn",
+  "last_name": "Ddoe",
+  "username": "tesdt12",
+  "email": "testd.test1@gmail.com",
+  "password": "password123",
+  "looking_for_internship": true
+}
 
 ### PUT REQUEST
 PUT http://localhost:8080/blogs/6445cf6972601c03035c28e5
