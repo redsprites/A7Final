@@ -13,6 +13,18 @@
 	<div class="container">
 		<h1>Create your account</h1>
 		<form id="myform">
+			<div class="mb-3">
+				<label class="form-label">First name</label>
+				<input name="firstName" type="text" class="form-control">
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Last Name</label>
+				<input name="lastName" type="text" class="form-control">
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Username</label>
+				<input name="userName" type="text" class="form-control">
+			  </div>
 		  <div class="mb-3">
 			<label class="form-label">Email address</label>
 			<input name="email" type="email" class="form-control" aria-describedby="emailHelp">
@@ -21,6 +33,18 @@
 			<label class="form-label">Password</label>
 			<input name="password" type="password" class="form-control">
 		  </div>
+		  <div class="form-floating">
+			<label for="internship">Are you looking for an internship?</label>
+			<br>
+			<br>
+			<div class="radio-container">
+				<input type="radio" name="internship" value="yes" checked>
+				<label>Yes</label>
+				<br>
+				<input type="radio" name="internship" value="no">
+				<label>No</label>
+			</div>
+		</div>
 		  <button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 	</div>
