@@ -67,13 +67,12 @@
 			username: userName.value,
 			email:email.value,
 			password:password.value,
-			
 		  },
 			validateStatus:()=>true
 		})
 		  .then(function (response) {
 			if (response.status == 200) {
-				location.href="../views/signin.html"
+				location.href="views/signin.html"
 		  }})
 		  .catch(function (error) {
 			console.log(error);
