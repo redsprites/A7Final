@@ -72,8 +72,10 @@
 			validateStatus:()=>true
 		})
 		  .then(function (response) {
-			if (response.status == 200) {
-				location.href="../views/signin.html"
+			console.log(response.status);
+			if (response.status == 201) {
+				console.log(response.status)
+				location.href="signin.html"
 		  }})
 		  .catch(function (error) {
 			console.log(error);
