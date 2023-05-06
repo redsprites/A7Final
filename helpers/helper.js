@@ -49,19 +49,21 @@ const blogs = {
 	},
 	detail: function (id) {
 		ax.GET_ONE(id, function (item) {
-		  let deleteButton = $('#btn-delete');
-		  deleteButton.on('click', function () {
-			database.delete(blogs.documentID, index);
-		  });
 		  $('#loading').hide();
+		  console.log(item);
+		  console.log(item.author);
 		  $('#post-title').text(item.title);
 		  $('#post-sub-title').text(item.subTitle);
 		  $('#blog-name').get(0).innerHTML = `
-		  	Posted by <a id="blog-name" href="user.html?index=${blog.author}">${item.firstName} ${item.lastName}</a> 
+		  	Posted by <a id="blog-name" href="user.html?index=${item.author}">${item.firstName} ${item.lastName}</a> 
 			on <span id="blog-date"></span>`;
 		  $('#blog-text').get(0).innerHTML= (item.blog);
 		  $('#blog-date').text(item.blogDate);
 		  $('#btn-edit').attr('href', `edit.html?index=${blog._id}`);
+		  let deleteButton = $('#btn-delete');
+		  deleteButton.on('click', function () {
+			database.delete(blogs.documentID, index);
+		  });
 		  if (item.hasOwnProperty('comments')) {
 			for (let i = 0; i < item.comments.length; i++) {
 			  let comment = item.comments[i];
@@ -97,49 +99,90 @@ const blogs = {
 			}
 		});
 	  },
-	  displayUser: function (index) {
-		database.detail(blogs.documentID, index, function (item) {
+	//   displayUser: function (index) {
+	// 	database.detail(blogs.documentID, index, function (item) {
+	// 		$('#loading').hide();
+	// 		let el = $('<div>').html(`
+	// 		<div class="user-preview">
+	// 				<p class="first-name">First Name: ${item.firstName}</p>
+	// 				<p class="last-name">Last Name: ${item.lastName}</p>
+	// 				<p class="user-name">User Name: ${item.userName}</p>
+	// 				<p class="email">Email: ${item.email}</p>
+	// 				<p class="internship">Looking for Internship: ${item.internship}</p>		
+	// 		</div>
+	// 	`);	
+	// 	$('#user-preview').append(el);
+	// 	});
+	//   }
+	displayUser: function (id) {
+		ax.GET_USER(id, function (item) {
 			$('#loading').hide();
 			let el = $('<div>').html(`
-			<div class="user-preview">
+				<div class="user-preview">
 					<p class="first-name">First Name: ${item.firstName}</p>
 					<p class="last-name">Last Name: ${item.lastName}</p>
 					<p class="user-name">User Name: ${item.userName}</p>
 					<p class="email">Email: ${item.email}</p>
-					<p class="internship">Looking for Internship: ${item.internship}</p>		
-			</div>
-		`);	
-		$('#user-preview').append(el);
-		});
-	  },
-	  create: function () {
-		$('form').on('submit', function (e) {
-		  e.preventDefault();
-		  let firstName = $('form input[name=firstName]');
-		  let lastName = $('form input[name=lastName]');
-		  let title = $('form input[name=title]');
-		  let subTitle = $('form input[name=subTitle]');
-		  let userName = $('form input[name=userName]');
-		  let email = $('form input[name=email]');
-		  let internship = $('form input[name=internship]');
-		  let blog = $('form textarea[name=blog]');
-		  const date = new Date();
-		  const todaysDate = date.toLocaleDateString();
-	
-		  let newBlog = {
-			firstName: firstName.val(),
-			lastName: lastName.val(),
-			title: title.val(),
-			subTitle: subTitle.val(),
-			userName: userName.val(),
-		  	email: email.val(),
-		  	internship: internship.val(),
-			blog: blog.val(),
-			blogDate: todaysDate,
-		  };
-		  database.create(blogs.documentID, newBlog);
+					<p class="internship">Looking for Internship: ${item.internship}</p>
+				</div>
+			`);
+			$('#user-preview').append(el);
 		});
 	},
+	create: function () {
+		$('form').on('submit', function (e) {
+		  e.preventDefault();
+		  // Assuming you have the userId available
+		  	  
+		  let title = $('form input[name=title]');
+		  let subTitle = $('form input[name=subTitle]');
+		  let blogContent = $('form textarea[name=blog]');
+		  const date = new Date();
+		  const todaysDate = date.toLocaleDateString();
+	  
+		  // Create a new blog object
+		  let newBlog = {
+			title: title.val(),
+			subTitle: subTitle.val(),
+			content: blogContent.val(),
+			date: todaysDate,
+		  };
+	  
+		  // Send the new blog data to your server using the POST method
+		  ax.POST(newBlog, function (response) {
+			console.log('Blog created:', response);
+		  });
+		});
+	  },	  
+	// ,
+	//   create: function () {
+	// 	$('form').on('submit', function (e) {
+	// 	  e.preventDefault();
+	// 	  let firstName = $('form input[name=firstName]');
+	// 	  let lastName = $('form input[name=lastName]');
+	// 	  let title = $('form input[name=title]');
+	// 	  let subTitle = $('form input[name=subTitle]');
+	// 	  let userName = $('form input[name=userName]');
+	// 	  let email = $('form input[name=email]');
+	// 	  let internship = $('form input[name=internship]');
+	// 	  let blog = $('form textarea[name=blog]');
+	// 	  const date = new Date();
+	// 	  const todaysDate = date.toLocaleDateString();
+	
+	// 	  let newBlog = {
+	// 		firstName: firstName.val(),
+	// 		lastName: lastName.val(),
+	// 		title: title.val(),
+	// 		subTitle: subTitle.val(),
+	// 		userName: userName.val(),
+	// 	  	email: email.val(),
+	// 	  	internship: internship.val(),
+	// 		blog: blog.val(),
+	// 		blogDate: todaysDate,
+	// 	  };
+	// 	  database.create(blogs.documentID, newBlog);
+	// 	});
+	// },
 	update: function (index) {
 		database.detail(blogs.documentID, index, function (item) {
 			$('#loading').hide();

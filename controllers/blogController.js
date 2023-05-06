@@ -4,11 +4,13 @@ const Blog = require('../models/blog');
 // Function to create a new blog post
 exports.createBlog = async (req, res) => {
     try {
-        const { title, content } = req.body;
+        const { title, subTitle, content, date } = req.body;
         const userId = req.user._id; // Assuming the user is logged in and their ID is stored in `req.user._id`
         const newBlog = new Blog({
             title,
+            subTitle,
             content,
+            date,
             author: userId
         });
 

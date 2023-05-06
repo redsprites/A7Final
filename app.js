@@ -29,6 +29,3 @@ app.use('/api/users', userRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/comments', commentRoutes);
 
-// app.use((req, res) => {
-//   res.status(404).json({ error: 'Not Found' });
-// });
