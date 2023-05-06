@@ -28,14 +28,16 @@ const blogs = {
                 console.log(innerItem);
             for (let i = index*4; i < endIndex; i++) {
                 let blog = innerItem[i];
+				console.log(blog);
+				console.log(blog._id);
                 let el = $('<div>').html(`
 						<div class="post-preview">
-							<a href="post.html?index=${i}">
+							<a href="post.html?index=${blog._id}">
 								<h2 class="post-title">${blog.title}</h2>
 								<h3 class="post-subtitle">${blog.subTitle}</h3>	
 							</a>	
 							<p class="post-meta">
-							Posted by <a href="user.html?index=${i}">${blog.firstName} ${blog.lastName}</a>
+							Posted by <a href="user.html?index=${blog.author}">${blog.firstName} ${blog.lastName}</a>
 							on ${blog.blogDate}
 							</p>	
 						</div>
@@ -45,8 +47,8 @@ const blogs = {
 			});
 		});
 	},
-	detail: function (index) {
-		database.detail(blogs.documentID, index, function (item) {
+	detail: function (id) {
+		ax.GET_ONE(id, function (item) {
 		  let deleteButton = $('#btn-delete');
 		  deleteButton.on('click', function () {
 			database.delete(blogs.documentID, index);
@@ -55,11 +57,11 @@ const blogs = {
 		  $('#post-title').text(item.title);
 		  $('#post-sub-title').text(item.subTitle);
 		  $('#blog-name').get(0).innerHTML = `
-		  	Posted by <a id="blog-name" href="user.html?index=${index}">${item.firstName} ${item.lastName}</a> 
+		  	Posted by <a id="blog-name" href="user.html?index=${blog.author}">${item.firstName} ${item.lastName}</a> 
 			on <span id="blog-date"></span>`;
 		  $('#blog-text').get(0).innerHTML= (item.blog);
 		  $('#blog-date').text(item.blogDate);
-		  $('#btn-edit').attr('href', `edit.html?index=${index}`);
+		  $('#btn-edit').attr('href', `edit.html?index=${blog._id}`);
 		  if (item.hasOwnProperty('comments')) {
 			for (let i = 0; i < item.comments.length; i++) {
 			  let comment = item.comments[i];
