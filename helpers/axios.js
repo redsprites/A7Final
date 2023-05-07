@@ -2,12 +2,9 @@
 const ax = {
     endpoint: 'http://localhost:8080/api/blogs/',
     getCookie: function (name) {
-        console.log(document.cookie);
         const cookies = document.cookie.split(';');
         for (let i = 0; i < cookies.length; i++) {
-          let cookie = cookies[i].trim();
-          console.log('Cookie:', cookie); // Log the current cookie
-      
+          let cookie = cookies[i].trim();      
           if (cookie.indexOf(name + '=') === 0) {
             return cookie.substring((name + '=').length, cookie.length);
           }
@@ -33,7 +30,11 @@ const ax = {
         });
     },
     GET_USER: function (id, callback) {
-        axios.get(`http://localhost:8080/api/users/${id}`, {}).then(function (response) {
+      const token = this.getCookie('token');
+      console.log(token);
+        axios.get(`http://localhost:8080/api/users/${id}`, { headers: {
+          'Authorization': `Bearer ${token}`,
+        },}).then(function (response) {
             callback(response.data);
         })
         .catch(function (error) {
