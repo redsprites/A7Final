@@ -55,7 +55,7 @@ const blogs = {
 		  $('#post-title').text(item.title);
 		  $('#post-sub-title').text(item.subTitle);
 		  $('#blog-name').get(0).innerHTML = `
-		  	Posted by <a id="blog-name" href="user.html?index=${item._id}">${item.firstName} ${item.lastName}</a> 
+		  	Posted by <a id="blog-name" href="user.html?index=${item.author}">${item.firstName} ${item.lastName}</a> 
 			on <span id="blog-date"></span>`;
 		  $('#blog-text').get(0).innerHTML= (item.blog);
 		  $('#blog-date').text(item.blogDate);
@@ -99,6 +99,21 @@ const blogs = {
 			}
 		});
 	  },
+	//   displayUser: function (index) {
+	// 	database.detail(blogs.documentID, index, function (item) {
+	// 		$('#loading').hide();
+	// 		let el = $('<div>').html(`
+	// 		<div class="user-preview">
+	// 				<p class="first-name">First Name: ${item.firstName}</p>
+	// 				<p class="last-name">Last Name: ${item.lastName}</p>
+	// 				<p class="user-name">User Name: ${item.userName}</p>
+	// 				<p class="email">Email: ${item.email}</p>
+	// 				<p class="internship">Looking for Internship: ${item.internship}</p>		
+	// 		</div>
+	// 	`);	
+	// 	$('#user-preview').append(el);
+	// 	});
+	//   }
 	displayUser: function (id) {
 		ax.GET_USER(id, function (item) {
 			$('#loading').hide();

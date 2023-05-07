@@ -33,6 +33,7 @@
 		e.preventDefault();
 		let email=document.querySelectorAll('[name="email"]')[0]
 		let password=document.querySelectorAll('[name="password"]')[0]
+		console.log()
 		axios({
 		  method: 'post',
 		  url: 'http://localhost:8080/api/auth/signin',
@@ -44,15 +45,12 @@
 		})
 		  .then(function (response) {
 			if (response.status == 200) {
-				if (response.status == 200) {
-      // Set the token as a cookie on the client-side
-    //   document.cookie = `token=${response.data.token}; expires=${new Date(Date.now() + response.data.expiresIn).toUTCString()}; path=/; HttpOnly; SameSite=Lax;`;
-	document.cookie = `token=${response.data.token}; expires=${new Date(Date.now() + response.data.expiresIn).toUTCString()}; path=/; SameSite=Lax;`;
-					// location.href = "user.html";
-	location.href = `./user.html?index=${response.data.userId}`;
-	}			
+				location.href="user.html"
+				
 			}
-			
+			console.log(response);
+	
+
 		  })
 		  .catch(function (error) {
 			console.log(error);

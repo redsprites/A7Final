@@ -82,12 +82,7 @@ exports.signin = async (req, res) => {
     });
     
 
-    res.status(200).json({
-       message: 'User authenticated',
-       token: token, // Send the token in the response body
-       expiresIn: jwt_expiration, // Send the expiration time in the response body
-       userId :user._id
-       });
+    res.status(200).json({ message: 'User authenticated' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'An error occurred while signing in' });
