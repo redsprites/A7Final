@@ -1,19 +1,16 @@
 
 const ax = {
     endpoint: 'http://localhost:8080/api/blogs/',
-    getCookie: function (name) {
-        console.log(document.cookie);
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-          let cookie = cookies[i].trim();
-          console.log('Cookie:', cookie); // Log the current cookie
-      
-          if (cookie.indexOf(name + '=') === 0) {
-            return cookie.substring((name + '=').length, cookie.length);
-          }
+    getCookie: function(name) {
+      const cookies = document.cookie.split(/;\s*/);
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i];
+        if (cookie.indexOf(name + '=') === 0) {
+          return cookie.substring(name.length + 1);
         }
-        return null;
-      },
+      }
+      return null;
+    },    
       
       
     GET: function (callback) {
@@ -41,20 +38,21 @@ const ax = {
         });
     },
     POST: function (data, callback) {
-        const token = this.getCookie('token');
-        console.log(token);
-        axios
-          .post(`${this.endpoint}`, data, {
-            headers: {
-              'Authorization': `Bearer ${token}`,
-            },
-          })
-          .then(function (response) {
-            callback(response.data);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      },      
-
+      const token = this.getCookie('token');
+      if (!token) {
+        console.error('No JWT token found in cookie');
+        return;
+      }
+      axios.post(`${this.endpoint}`, data, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+      .then(function (response) {
+        callback(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    },    
 }
