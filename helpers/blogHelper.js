@@ -37,8 +37,8 @@ const blogs = {
 								<h3 class="post-subtitle">${blog.subtitle}</h3>	
 							</a>	
 							<p class="post-meta">
-							Posted by <a href="user.html?index=${blog.author}">${blog.firstName} ${blog.lastName}</a>
-							on ${blog.blogDate}
+							Posted by <a href="user.html?index=${blog.author}">${blog.author}</a>
+							on ${blog.date}
 							</p>	
 						</div>
 					`);
