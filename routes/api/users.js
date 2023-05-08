@@ -5,7 +5,7 @@ const isAuthenticated = require('../../middleware/isAuthenticated');
 
 // Get a user profile
 router.get('/', userController.getUsers);
-router.get('/:id', isAuthenticated, userController.getUser);
+router.get('/:id', userController.getUser);
 
 // Update a user profile
 router.put('/:id', isAuthenticated, userController.updateUser);

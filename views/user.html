@@ -47,8 +47,14 @@
                 </div>
             </div>
         </header>
+
+        <a class="btn btn-primary text-uppercase" id="btn-edit-blog" href="" style="display: none;">Edit Blog</a> 
+        <button class="btn btn-primary text-uppercase" type="button" id="btn-delete-blog" style="display: none;">Delete Blog</button>
         <!-- Main Content-->
         <article class="mb-4">
+            <div class="container" style = "padding-bottom: 30px;">
+                
+            </div>
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
@@ -108,13 +114,12 @@
         <script src="../helpers/axios.js"></script>
         <script src="../assets/js/getAllURLParams.js"></script>
         <script src="../helpers/helper.js"></script>
-        <!-- <script src="assets/api.js"></script>
-        <script src="assets/database.js"></script>
-        <script src="assets/getAllURLParams.js"></script> -->
-        <!-- <script src="app.js"></script> -->
+        <script src="../helpers/userHelper.js"></script>
         <script>
-            blogs.displayUser(getAllUrlParams().index);
+            users.displayUser(getAllUrlParams().index);
+            window.onload = function() {
+            showUserOptions();
+        };
         </script>
-        <!-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> -->
     </body>
 </html>
