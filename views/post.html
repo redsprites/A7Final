@@ -58,7 +58,8 @@
     <!-- Post Content-->
     <article class="mb-4">
         <div class="container" style = "padding-bottom: 30px;">
-            <a class="btn btn-primary text-uppercase" id="btn-edit" href="">Edit Blog</a> <button class="btn btn-primary text-uppercase" type="button" id="btn-delete">Delete Blog</button>
+            <a class="btn btn-primary text-uppercase" id="btn-edit-blog" style="display:none">Edit Blog</a>
+            <button class="btn btn-primary text-uppercase" type="button" id="btn-delete-blog" style="display:none">Delete Blog</button>
         </div>
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -145,9 +146,13 @@
     <script src="../helpers/axios.js"></script>
     <script src="../assets/js/getAllURLParams.js"></script>
     <script src="../helpers/helper.js"></script>
+    <script src="../helpers/blogHelper.js"></script>
     <script>
         blogs.detail(getAllUrlParams().index);
         blogs.addComment(getAllUrlParams().index);
+        window.onload = function() {
+            showUserOptions();
+        };
     </script>
 </body>
 

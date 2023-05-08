@@ -11,8 +11,6 @@ const ax = {
         }
         return null;
       },
-      
-      
     GET: function (callback) {
         axios.get(`${ax.endpoint}`, {}).then(function (response) {
             callback(response.data);
@@ -30,17 +28,26 @@ const ax = {
         });
     },
     GET_USER: function (id, callback) {
-      const token = this.getCookie('token');
-      console.log(token);
-        axios.get(`http://localhost:8080/api/users/${id}`, { headers: {
-          'Authorization': `Bearer ${token}`,
-        },}).then(function (response) {
+      axios.get(`http://localhost:8080/api/users/${id}`)
+        .then(function (response) {
             callback(response.data);
         })
         .catch(function (error) {
             console.log(error);
         });
     },
+    // GET_USER: function (id, callback) {
+    //   const token = this.getCookie('token');
+    //   console.log(token);
+    //     axios.get(`http://localhost:8080/api/users/${id}`, { headers: {
+    //       'Authorization': `Bearer ${token}`,
+    //     },}).then(function (response) {
+    //         callback(response.data);
+    //     })
+    //     .catch(function (error) {
+    //         console.log(error);
+    //     });
+    // },
     POST: function (data, callback) {
         const token = this.getCookie('token');
         console.log(token);
