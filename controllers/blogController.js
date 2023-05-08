@@ -7,12 +7,14 @@ exports.createBlog = async (req, res) => {
     const { title, subTitle, content, date } = req.body;
     const userId = req.user._id; // Assuming the user is logged in and their ID is stored in `req.user._id`
     const newBlog = new Blog({
-      title,
-      subTitle,
-      content,
-      date,
-      author: userId,
+      title: title,
+      subtitle: subTitle,
+      content: content,
+      date: date,
+      author: userId
     });
+
+    console.log(newBlog);
 
     const savedBlog = await newBlog.save();
 
