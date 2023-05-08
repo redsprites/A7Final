@@ -49,20 +49,21 @@ const ax = {
     //     });
     // },
     POST: function (data, callback) {
-        const token = this.getCookie('token');
-        console.log(token);
-        axios
-          .post(`${this.endpoint}`, data, {
-            headers: {
-              'Authorization': `Bearer ${token}`,
-            },
-          })
-          .then(function (response) {
-            callback(response.data);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      },      
-
+      const token = this.getCookie('token');
+      if (!token) {
+        console.error('No JWT token found in cookie');
+        return;
+      }
+      axios.post(`${this.endpoint}`, data, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+      .then(function (response) {
+        callback(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    },    
 }

@@ -121,7 +121,7 @@ exports.deleteCommentById = async (req, res) => {
             res.status(404).json({ error: 'Comment not found' });
             return;
         }
-    
+
         res.status(200).json({
             success: true,
             message: 'Comment deleted successfully',

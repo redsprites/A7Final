@@ -80,7 +80,7 @@ exports.signin = async (req, res) => {
       httpOnly: true,
       // secure: true, // Uncomment this line if you are using HTTPS
     });
-    
+
 
     res.status(200).json({
        message: 'User authenticated',

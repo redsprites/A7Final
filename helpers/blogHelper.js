@@ -49,23 +49,25 @@ const blogs = {
 	},
     detail: function (id) {
 		ax.GET_ONE(id, function (item) {
-		  $('#loading').hide();
-		  $('#post-title').text(item.title);
-		  $('#post-sub-title').text(item.subTitle);
-		  $('#blog-name').get(0).innerHTML = `
-		  	Posted by <a id="blog-name" href="user.html?index=${item.author}">${item.firstName} ${item.lastName}</a> 
+			$('#loading').hide();
+			console.log(item);
+			console.log(item.author);
+			$('#post-title').text(item.title);
+			$('#post-sub-title').text(item.subtitle);
+			$('#blog-name').get(0).innerHTML = `
+		  	Posted by <a id="blog-name" href="user.html?index=${item._id}">${item.firstName} ${item.lastName}</a> 
 			on <span id="blog-date"></span>`;
-		  $('#blog-text').get(0).innerHTML= (item.blog);
-		  $('#blog-date').text(item.blogDate);
-		  $('#btn-edit-blog').attr('href', `edit.html?index=${blog._id}`);
-		  let deleteButton = $('#btn-delete-blog');
-		  deleteButton.on('click', function () {
-			database.delete(blogs.documentID, index);
-		  });
-		  if (item.hasOwnProperty('comments')) {
-			for (let i = 0; i < item.comments.length; i++) {
-			  let comment = item.comments[i];
-			  let el = $('<div>').html(`
+			$('#blog-text').get(0).innerHTML = (item.content);
+			$('#blog-date').text(item.date);
+			$('#btn-edit').attr('href', `edit.html?index=${blog._id}`);
+			let deleteButton = $('#btn-delete');
+			deleteButton.on('click', function () {
+				database.delete(blogs.documentID, index);
+			});
+			if (item.hasOwnProperty('comments')) {
+				for (let i = 0; i < item.comments.length; i++) {
+					let comment = item.comments[i];
+					let el = $('<div>').html(`
 			  <div>
 					  <em>${comment.comment}</em>
 				  <blockquote>
@@ -121,7 +123,7 @@ const blogs = {
 			console.log('Blog created:', response);
 		  });
 		});
-	  },	  
+	  },  
 	update: function (index) {
 		database.detail(blogs.documentID, index, function (item) {
 			$('#loading').hide();
