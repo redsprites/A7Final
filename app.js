@@ -16,6 +16,10 @@ app.use(cookieParser());
 app.use('/public', express.static('public'));
 app.use('/assets', express.static('assets'));
 
+app.get('/api/user', (req, res) => {
+  const token = req.cookies['token'];
+  console.log('Token:', token);
+});
 const port = 8080;
 app.listen(port, () => {
   console.log('Server started on port', port);

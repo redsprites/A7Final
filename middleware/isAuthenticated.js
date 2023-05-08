@@ -6,11 +6,11 @@ module.exports = (req, res, next) => {
   if (!req.headers.authorization) {
     return res.status(401).json({ error: 'Access denied. No token provided.' });
   }
-
+ 
   // Get the token from the "Authorization" header
   const token = req.headers.authorization.split(' ')[1];
-  console.log(token);
-
+  
+ console.log(token);
   if (!token) {
     return res.status(401).json({ error: 'Access denied. No token provided.' });
   }
