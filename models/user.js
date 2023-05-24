@@ -2,15 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  first_name: {
+  firstName: {
     type: String,
     required: false,
   },
-  last_name: {
+  lastName: {
     type: String,
     required: false,
   },
-  username: {
+  userName: {
     type: String,
     required: true,
     unique: true,
@@ -24,7 +24,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  looking_for_internship: {
+  internship: {
     type: Boolean,
     required: false,
   },

@@ -22,7 +22,7 @@
 				<input name="lastName" type="text" class="form-control">
 			</div>
 			<div class="mb-3">
-				<label class="form-label">Username</label>
+				<label class="form-label">UserName</label>
 				<input name="userName" type="text" class="form-control">
 			  </div>
 		  <div class="mb-3">
@@ -55,18 +55,23 @@
 	
 	myform.addEventListener('submit',(e)=>{
 		e.preventDefault();
-		let email=document.querySelectorAll('[name="email"]')[0]
-		let password=document.querySelectorAll('[name="password"]')[0]
-					
-		let userName=document.querySelector('[name="userName"]')
+		let firstName = document.querySelectorAll('[name="firstName"]')[0]
+		let lastName = document.querySelectorAll('[name="lastName"]')[0]
+		let email = document.querySelectorAll('[name="email"]')[0]
+		let password = document.querySelectorAll('[name="password"]')[0]
+		let userName = document.querySelector('[name="userName"]')
+		let internship = document.querySelector('[name="internship"]')
 		console.log(userName);
 		axios({
 		  method: 'post',
 		  url: 'http://localhost:8080/api/auth/signup',
 		  data: {
-			username: userName.value,
-			email:email.value,
-			password:password.value,
+			firstName: firstName.value,
+      		lastName: lastName.value,
+			userName: userName.value,
+			email: email.value,
+			password: password.value,
+			internship: internship.value
 		  },
 			validateStatus:()=>true
 		})

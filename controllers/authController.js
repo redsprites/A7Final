@@ -9,12 +9,12 @@ exports.signup = async (req, res) => {
 
   try {
     const {
-      first_name,
-      last_name,
-      username,
-      email,
-      password,
-      looking_for_internship,
+      firstName: firstName,
+      lastName: lastName,
+      userName: userName,
+      email: email,
+      password: password,
+      internship: internship,
     } = req.body;
     // console.log(req.body);
     const existingUser = await User.findOne({ email });
@@ -26,20 +26,23 @@ exports.signup = async (req, res) => {
         message: 'Email is already in use',
       });
     }
-
+  // user does not exist so proceed with creating the user
+    //  hash the password
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-
+// build the user from the req.body data
     const newUser = new User({
-      first_name,
-      last_name,
-      username,
-      email,
+      firstName: firstName,
+      lastName: lastName,
+      userName: userName,
+      email: email,
       password: hashedPassword,
-      looking_for_internship,
+      internship: internship,
     });
-
+    
+    console.log(newUser);
+// save the user in mongodb
     const savedUser = await newUser.save();
-
+// send the response
     res.status(201).json({
       success: true,
       message: 'User created successfully',
