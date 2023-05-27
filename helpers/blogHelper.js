@@ -1,35 +1,33 @@
 const blogs = {
-	index: function () {
-		$(document).ready(function () {
+	index: async function () {
+		$('#blogs').html('Loading Blogs, please wait...');
+		try{
 			var btns = $("#btns");
 			var index = getAllUrlParams().page;
-			if (index == null) {
+			if (index == null || index == "nan") {
 				index = 0;
 			}
-			ax.GET(function (items) {
-				if (index >= (items.length / 4) || index < 0 || index == null) {
-					$("body").html(`<h1 style="color: #555; font-size: 50px; margin-top: 50px; text-align: center; font-family: Arial, sans-serif">Error 404: Page not found</h1><p style = "font-size: 20px; color: #888; margin-bottom: 50px; text-align: center; font-family: Arial, sans-serif">Sorry, the page you're looking for doesn't exist.</p>`);
-				}
-				btns.append(`
-			  <div style="padding-bottom: 20px; display: flex; justify-content: space-evenly; align-items: center">
-			  <a href="index.html?page=${(index - 1) < 0 ? ((items.length / 4) - 1) : (index - 1)}" role="button" class="btn btn-primary text-uppercase">Previous</a>
-			  <a href="index.html?page=${(parseInt(index) + 1) >= (items.length / 4) ? 0 : (parseInt(index) + 1)}" role="button" class="btn btn-primary text-uppercase">Next</a>
-			  </div>`);
-			});
-			$('#blogs').html('Loading Blogs, please wait...');
-			ax.GET(function (items) {
+			var items = await ax.GET() 
+			if (index >= (items.length / 4) || index < 0 || index == null) {
+				$("body").html(`<h1 style="color: #555; font-size: 50px; margin-top: 50px; text-align: center; font-family: Arial, sans-serif">Error 404: Page not found</h1>
+			// 	<p style = "font-size: 20px; color: #888; margin-bottom: 50px; text-align: center; font-family: Arial, sans-serif">Sorry, the page you're looking for doesn't exist.</p>`);
+			}
+			btns.append(`
+			// <div style="padding-bottom: 20px; display: flex; justify-content: space-evenly; align-items: center">
+			// <a href="index.html?page=${(index - 1) < 0 ? ((items.length / 4) - 1) : (index - 1)}" role="button" class="btn btn-primary text-uppercase">Previous</a>
+			// <a href="index.html?page=${(parseInt(index) + 1) >= (items.length / 4) ? 0 : (parseInt(index) + 1)}" role="button" class="btn btn-primary text-uppercase">Next</a>
+			// </div>`);
+			
+			
+			var items = await ax.GET(); 
 				$('#blogs').empty();
 				var endIndex = (index * 4) + 4;
 				if (endIndex > items.length) {
 					endIndex = items.length;
 				}
-				console.log(items);
 				innerItem = items.blogs
-				console.log(innerItem);
 				for (let i = index * 4; i < endIndex; i++) {
 					let blog = innerItem[i];
-					console.log(blog);
-					console.log(blog._id);
 					let el = $('<div>').html(`
 						<div class="post-preview">
 							<a href="post.html?index=${blog._id}">
@@ -37,31 +35,28 @@ const blogs = {
 								<h3 class="post-subtitle">${blog.subtitle}</h3>	
 							</a>	
 							<p class="post-meta">
-							Posted by <a href="user.html?index=${blog.author}">${blog.author.username}</a>
+							Posted by <a href="user.html?index=${blog.author}">${blog.author.userName}</a>
 							on ${blog.date}
 							</p>	
 						</div>
 					`);
 					$('#post-preview').append(el);
 				}
-			});
-		});
+			}
+		catch(error){
+			console.log('Error fetching data:', error);
+		}
 	},
-	detail: function (id) {
-		ax.GET_ONE(id, function (item) {
+	detail: async function (id) {
+		try{
+			item = await ax.GET_ONE(id);
 			$('#loading').hide();
-			console.log(item);
-			console.log(item.author);
 			$('#post-title').text(item.title);
 			$('#post-sub-title').text(item.subtitle);
-			var username;
-			const user = ax.GET_USER(item.author, (name) => {
-				username = name.username;
-				console.log(username);
-
-
+			const user =  await ax.GET_USER(item.author._id);
+			userName = user.userName;
 				$('#blog-name').get(0).innerHTML = `
-		  	Posted by <a id="blog-name" href="user.html?index=${item.author}"> ${username} </a> 
+		  	Posted by <a id="blog-name" href="user.html?index=${item.author}"> ${userName} </a> 
 			on <span id="blog-date"></span>`;
 				$('#blog-text').get(0).innerHTML = (item.content);
 				$('#blog-date').text(item.date);
@@ -103,8 +98,11 @@ const blogs = {
 						});
 					}
 				}
-			});
-		});
+			}
+			catch(error){
+				console.log(error);
+			}
+		
 	},
 	create: function () {
 		if (!document.cookie.includes('token')) {

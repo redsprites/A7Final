@@ -13,11 +13,7 @@ exports.createBlog = async (req, res) => {
       date: date,
       author: userId
     });
-
-    console.log(newBlog);
-
     const savedBlog = await newBlog.save();
-
     res.status(201).json({
       success: true,
       message: 'Blog created successfully',
@@ -33,7 +29,6 @@ exports.createBlog = async (req, res) => {
 };
 
 exports.getBlog = async (req, res) => {
-  console.log(req.params);
   const id = req.params.id;
 
   // Check if the id is a valid ObjectId
@@ -43,11 +38,13 @@ exports.getBlog = async (req, res) => {
   }
 
   try {
-    const blog = await Blog.findById(id);
+    const blog = await Blog.findById(id).populate('author' , 'userName');
     if (!blog) {
       res.status(404).json({ error: 'Blog not found' });
       return;
     }
+    
+    // blog = blog.populate('author', 'userName');
     res.status(200).json(blog);
   } catch (err) {
     console.error(`Error retrieving blog: ${err}`);
@@ -57,7 +54,7 @@ exports.getBlog = async (req, res) => {
 
 exports.getBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find().populate('author', 'username');
+    const blogs = await Blog.find().populate('author', 'userName');
     res.status(200).json({ success: true, blogs });
   } catch (error) {
     console.error(error);
