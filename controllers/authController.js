@@ -16,11 +16,9 @@ exports.signup = async (req, res) => {
       password: password,
       internship: internship,
     } = req.body;
-    // console.log(req.body);
+    
     const existingUser = await User.findOne({ email });
-    // console.log(existingUser);
-
-    if (existingUser) {
+      if (existingUser) {
       return res.status(400).json({
         success: false,
         message: 'Email is already in use',
@@ -38,8 +36,6 @@ exports.signup = async (req, res) => {
       password: hashedPassword,
       internship: internship,
     });
-    
-    console.log(newUser);
 // save the user in mongodb
     const savedUser = await newUser.save();
 // send the response
@@ -76,7 +72,6 @@ exports.signin = async (req, res) => {
     const token = jwt.sign({ _id: user._id }, jwtSecret, {
       expiresIn: jwt_expiration,
     });
-    console.log(token);
     // Save the token as a cookie
     res.cookie('token', token, {
       expires: new Date(Date.now() + jwt_expiration),

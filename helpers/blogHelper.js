@@ -10,22 +10,23 @@ const blogs = {
 			var items = await ax.GET() 
 			if (index >= (items.length / 4) || index < 0 || index == null) {
 				$("body").html(`<h1 style="color: #555; font-size: 50px; margin-top: 50px; text-align: center; font-family: Arial, sans-serif">Error 404: Page not found</h1>
-			// 	<p style = "font-size: 20px; color: #888; margin-bottom: 50px; text-align: center; font-family: Arial, sans-serif">Sorry, the page you're looking for doesn't exist.</p>`);
+			 	<p style = "font-size: 20px; color: #888; margin-bottom: 50px; text-align: center; font-family: Arial, sans-serif">Sorry, the page you're looking for doesn't exist.</p>`);
 			}
 			btns.append(`
-			// <div style="padding-bottom: 20px; display: flex; justify-content: space-evenly; align-items: center">
-			// <a href="index.html?page=${(index - 1) < 0 ? ((items.length / 4) - 1) : (index - 1)}" role="button" class="btn btn-primary text-uppercase">Previous</a>
-			// <a href="index.html?page=${(parseInt(index) + 1) >= (items.length / 4) ? 0 : (parseInt(index) + 1)}" role="button" class="btn btn-primary text-uppercase">Next</a>
-			// </div>`);
+			 <div style="padding-bottom: 20px; display: flex; justify-content: space-evenly; align-items: center">
+			 <a href="index.html?page=${(index - 1) < 0 ? ((items.length / 4) - 1) : (index - 1)}" role="button" class="btn btn-primary text-uppercase">Previous</a>
+			 <a href="index.html?page=${(parseInt(index) + 1) >= (items.length / 4) ? 0 : (parseInt(index) + 1)}" role="button" class="btn btn-primary text-uppercase">Next</a>
+			 </div>`);
 			
 			
 			var items = await ax.GET(); 
 				$('#blogs').empty();
-				var endIndex = (index * 4) + 4;
+				var endIndex = (index * 4) + items.blogs.length % 4;
 				if (endIndex > items.length) {
 					endIndex = items.length;
 				}
-				innerItem = items.blogs
+				var innerItem = items.blogs;
+				
 				for (let i = index * 4; i < endIndex; i++) {
 					let blog = innerItem[i];
 					let el = $('<div>').html(`
@@ -35,8 +36,8 @@ const blogs = {
 								<h3 class="post-subtitle">${blog.subtitle}</h3>	
 							</a>	
 							<p class="post-meta">
-							Posted by <a href="user.html?index=${blog.author}">${blog.author.userName}</a>
-							on ${blog.date}
+							Posted by <a href="user.html?index=${blog.author._id}">${blog.author.userName}</a>
+							on ${new Date(blog.date).toLocaleDateString()}
 							</p>	
 						</div>
 					`);
@@ -56,10 +57,10 @@ const blogs = {
 			const user =  await ax.GET_USER(item.author._id);
 			userName = user.userName;
 				$('#blog-name').get(0).innerHTML = `
-		  	Posted by <a id="blog-name" href="user.html?index=${item.author}"> ${userName} </a> 
+		  	Posted by <a id="blog-name" href="user.html?index=${item.author._id}"> ${userName} </a> 
 			on <span id="blog-date"></span>`;
 				$('#blog-text').get(0).innerHTML = (item.content);
-				$('#blog-date').text(item.date);
+				$('#blog-date').text(new Date(item.date).toLocaleDateString());
 				$('#btn-edit').attr('href', `edit.html?index=${blog._id}`);
 				let deleteButton = $('#btn-delete');
 				deleteButton.on('click', function () {
@@ -128,7 +129,7 @@ const blogs = {
 
 				// Send the new blog data to your server using the POST method
 				ax.POST(newBlog, function (response) {
-					console.log('Blog created:', response);
+					// console.log('Blog created:', response);
 					location.href = "post.html?index=" + response.blog._id;
 				});
 			});

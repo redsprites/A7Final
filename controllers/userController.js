@@ -17,8 +17,6 @@ exports.getUsers = async (req, res) => {
 
 // Get a single user by ID
 exports.getUser = async (req, res) => {
-  console.log(req);
-  console.log(req.params.id);
   const id = req.params.id;
 
   if (!ObjectId.isValid(id)) {

@@ -1,6 +1,6 @@
 const users = {
-    displayUser: function (id) {
-      ax.GET_USER(id, function (item) {
+    displayUser: async function (id) {
+      item = await ax.GET_USER(id);
         $('#loading').hide();
         // $('#btn-edit-blog').attr('href', `edit.html?index=${blog._id}`);
         let el = $('<div>').html(`
@@ -15,7 +15,7 @@ const users = {
         $('#user-preview').append(el);
         // Call showUserOptions() function after rendering the user profile
         showUserOptions();
-      });
+      
     },
   };
   
