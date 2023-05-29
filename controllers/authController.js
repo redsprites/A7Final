@@ -1,4 +1,4 @@
-const User = require('../models/user');
+// const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
@@ -8,6 +8,7 @@ const jwt_expiration = 60 * 60 * 1000; // 1 hour in milliseconds
 exports.signup = async (req, res) => {
 
   try {
+    const User = req.models.User;
     const {
       firstName: firstName,
       lastName: lastName,
@@ -57,6 +58,7 @@ exports.signin = async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    const User = req.models.User;
     const user = await User.findOne({ email });
 
     if (!user) {

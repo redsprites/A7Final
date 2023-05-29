@@ -1,9 +1,9 @@
 const { ObjectId } = require('mongodb');
-const Blog = require('../models/blog');
 
 // Function to create a new blog post
 exports.createBlog = async (req, res) => {
   try {
+    const Blog = req.models.Blog;
     const { title, subTitle, content, date } = req.body;
     const userId = req.user._id; // Assuming the user is logged in and their ID is stored in `req.user._id`
     const newBlog = new Blog({
@@ -28,7 +28,9 @@ exports.createBlog = async (req, res) => {
   }
 };
 
+
 exports.getBlog = async (req, res) => {
+  const Blog = req.models.Blog;
   const id = req.params.id;
 
   // Check if the id is a valid ObjectId
@@ -52,8 +54,9 @@ exports.getBlog = async (req, res) => {
   }
 };
 
-exports.getBlogs = async (req, res) => {
-  try {
+exports.getBlogs= async (req, res) => {
+  const Blog = req.models.Blog;
+   try {
     const blogs = await Blog.find().populate('author', 'userName');
     res.status(200).json({ success: true, blogs });
   } catch (error) {
@@ -64,7 +67,9 @@ exports.getBlogs = async (req, res) => {
   }
 };
 
-exports.updateBlog = async (req, res) => {
+  exports.updateBlog = async (req, res) => {
+    const Blog = req.models.Blog;
+  
   const blogId = req.params.id;
   const { title, content } = req.body;
 
@@ -98,8 +103,9 @@ exports.updateBlog = async (req, res) => {
       .json({ error: `Error updating blog: ${err.message}` });
   }
 };
-
 exports.deleteBlog = async (req, res) => {
+  const Blog = req.models.Blog;
+
   const blogId = req.params.id;
 
   // Check if the id is a valid ObjectId

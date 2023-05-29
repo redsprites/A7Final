@@ -6,42 +6,32 @@
     <link href="../assets/css/styles.css" rel="stylesheet" />
 </head>
 <body>
-    <div id="header"></div>
-
     <header class="masthead" style="background-color: #093b45; background-blend-mode: lighten; background-size:90% 80%; background-image: url('../assets/img/undraw_career_progress.svg')">
         <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="page-heading">
-                        <h1>User Profile</h1>
-                        <span class="subheading">All about the user right here.</span>
+                        <h1>companies</h1>
+                        <span class="subheading">All about the company right here.</span>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-
-    <a class="btn btn-primary text-uppercase" id="btn-edit-blog" href="" style="display: none;">Edit Blog</a> 
-    <button class="btn btn-primary text-uppercase" type="button" id="btn-delete-blog" style="display: none;">Delete Blog</button>
-    <!-- Main Content-->
-    <article class="mb-4">
-        <div class="container" style = "padding-bottom: 30px;">
-            
-        </div>
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    <div id="loading">Loading User...</div>
-                    <div id="user-preview"></div>
-                    <div id="first-name"></div>
-                    <div id="last-name"></div>
-                    <div id="user-name"></div>
-                    <div id="email"></div>
-                    <div id="internship"></div>
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <!-- Post preview-->
+                <div id="blogs">
                 </div>
+                <div id="post-preview" class="post-preview"></div>
+                <!-- Divider-->
+                <hr class="my-4" />
+                <!-- Pager-->
+                <div id="btns"></div>
             </div>
         </div>
-    </article>
+    </div>
 
     <div id="footer"></div>
       <!-- Bootstrap core JS-->
@@ -53,19 +43,18 @@
       <script src="../helpers/axios.js"></script>
       <script src="../assets/js/getAllURLParams.js"></script>
       <script src="../helpers/helper.js"></script>
-      <script src="../helpers/userHelper.js"></script>
+      <script src="../helpers/companyHelper.js"></script>
       <script>
         $(function(){
             $("#header").load("../public/header.html"); 
             $("#footer").load("../public/footer.html"); 
         });
+        // users.displayUser(getAllUrlParams().index);
+      
+        // companies.index(getAllUrlParams().jobtitle);
+        companies.index("SOFTWARE ENGINEER");
     </script>
-      <script>
-          users.displayUser(getAllUrlParams().index);
-          window.onload = function() {
-          showUserOptions();
-      };
-      </script>
+     
    
 </body>
 </html>

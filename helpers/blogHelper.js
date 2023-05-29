@@ -14,12 +14,10 @@ const blogs = {
 			}
 			btns.append(`
 			 <div style="padding-bottom: 20px; display: flex; justify-content: space-evenly; align-items: center">
-			 <a href="index.html?page=${(index - 1) < 0 ? ((items.length / 4) - 1) : (index - 1)}" role="button" class="btn btn-primary text-uppercase">Previous</a>
-			 <a href="index.html?page=${(parseInt(index) + 1) >= (items.length / 4) ? 0 : (parseInt(index) + 1)}" role="button" class="btn btn-primary text-uppercase">Next</a>
+			 <a href="index.html?page=${(index - 1) < 0 ? ((items.blogs.length / 4) - 1) : (index - 1)}" role="button" class="btn btn-primary text-uppercase">Previous</a>
+			 <a href="index.html?page=${(parseInt(index) + 1) >= (items.blogs.length / 4) ? 0 : (parseInt(index) + 1)}" role="button" class="btn btn-primary text-uppercase">Next</a>
 			 </div>`);
 			
-			
-			var items = await ax.GET(); 
 				$('#blogs').empty();
 				var endIndex = (index * 4) + items.blogs.length % 4;
 				if (endIndex > items.length) {

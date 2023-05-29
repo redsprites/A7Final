@@ -39,18 +39,17 @@ const ax = {
       throw error;
     }
   },
-    // GET_USER: function (id, callback) {
-    //   const token = this.getCookie('token');
-    //   console.log(token);
-    //     axios.get(`http://localhost:8080/api/users/${id}`, { headers: {
-    //       'Authorization': `Bearer ${token}`,
-    //     },}).then(function (response) {
-    //         callback(response.data);
-    //     })
-    //     .catch(function (error) {
-    //         console.log(error);
-    //     });
-    // },
+  GET_COMPANIES: async function(jobTitle) {
+    try{
+      console.log("axios companies called with" , jobTitle);
+      const response = await axios.get(`http://localhost:8080/api/companies/SOFTWARE ENGINEER`);
+        return response.data;
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  },
     POST: function (data, callback) {
       const token = this.getCookie('token');
       if (!token) {
