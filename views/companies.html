@@ -18,6 +18,17 @@
             </div>
         </div>
     </header>
+    <!-- Search Bar -->
+<div class="container px-4 px-lg-5">
+    <form id="jobSearchForm">
+        <div class="form-group">
+            <label for="jobTitle">Job Title:</label>
+            <input type="text" class="form-control" id="jobTitle" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
@@ -44,7 +55,8 @@
       <script src="../assets/js/getAllURLParams.js"></script>
       <script src="../helpers/helper.js"></script>
       <script src="../helpers/companyHelper.js"></script>
-      <script>
+      <!-- <script>
+        
         $(function(){
             $("#header").load("../public/header.html"); 
             $("#footer").load("../public/footer.html"); 
@@ -52,9 +64,20 @@
         // users.displayUser(getAllUrlParams().index);
       
         // companies.index(getAllUrlParams().jobtitle);
-        companies.index("SOFTWARE ENGINEER");
+        companies.index(title);
+    </script> -->
+       <script>
+        $(function(){
+            $("#header").load("../public/header.html"); 
+            $("#footer").load("../public/footer.html"); 
+        });
+
+        $('#jobSearchForm').on('submit', function(e) {
+            e.preventDefault();
+            var title = $('#jobTitle').val();
+            companies.index(title);
+        });
     </script>
-     
    
 </body>
 </html>

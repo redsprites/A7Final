@@ -42,7 +42,7 @@ const ax = {
   GET_COMPANIES: async function(jobTitle) {
     try{
       console.log("axios companies called with" , jobTitle);
-      const response = await axios.get(`http://localhost:8080/api/companies/SOFTWARE ENGINEER`);
+      const response = await axios.get(`http://localhost:8080/api/companies/${jobTitle}`);
         return response.data;
     }
     catch(error){
