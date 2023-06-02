@@ -1,5 +1,7 @@
 const blogs = {
+
 	index: async function () {
+	
 		$('#blogs').html('Loading Blogs, please wait...');
 		try{
 			var btns = $("#btns");

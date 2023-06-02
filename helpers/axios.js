@@ -13,6 +13,7 @@ const ax = {
   },
   GET: async function () {
     try {
+      console.log("get called with", this.endpoint);
       const response = await axios.get(`${ax.endpoint}`, {});
       return response.data;
     } catch (error) {

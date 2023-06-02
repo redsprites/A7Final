@@ -3,6 +3,7 @@ const { ObjectId } = require('mongodb');
 // Function to create a new blog post
 exports.createBlog = async (req, res) => {
   try {
+    
     const Blog = req.models.Blog;
     const { title, subTitle, content, date } = req.body;
     const userId = req.user._id; // Assuming the user is logged in and their ID is stored in `req.user._id`
@@ -30,6 +31,7 @@ exports.createBlog = async (req, res) => {
 
 
 exports.getBlog = async (req, res) => {
+  console.log("blog controller called");
   const Blog = req.models.Blog;
   const id = req.params.id;
 
