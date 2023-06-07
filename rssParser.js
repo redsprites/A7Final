@@ -27,7 +27,7 @@ exports.parseRss = async function (rssUrl) {
             }
         });
 
-       
+        console.log(response.status);
         const parser = new xml2js.Parser();
         const companies = []; // This array will hold all the job objects
 
@@ -67,6 +67,7 @@ exports.parseRss = async function (rssUrl) {
         return companies;
     } catch (e) {
         console.log("An error occurred: ", e);
+        // Return an empty array in case of an error
+        return [];
     }
 }
-
