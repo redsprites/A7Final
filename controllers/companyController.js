@@ -75,9 +75,9 @@ exports.jobTitleQuery = async (req, res) => {
                 isFirstFetch = false;
             } else {
                 // Wait for 15 seconds before making the next fetch, printing a countdown
-                for (let i = 15; i > 0; i--) {
+                for (let i = 3; i > 0; i--) {
                     console.log(i);
-                    await new Promise(resolve => setTimeout(resolve, 15000));
+                    await new Promise(resolve => setTimeout(resolve, 1));
                 }
             }
             await fetchPage();
